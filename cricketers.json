@@ -1,0 +1,17 @@
+{
+  "status": 200,
+  "cricketersdata": [
+    {
+      "id": 1,
+      "name": "Dhoni",
+      "age": "39",
+      "imgurl": "https://i.pinimg.com/originals/b0/ee/0c/b0ee0c0eee7437f49eabdbda8b441613.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Dhoni",
+      "age": "39",
+      "imgurl": "https://i.pinimg.com/originals/b0/ee/0c/b0ee0c0eee7437f49eabdbda8b441613.jpg"
+    }
+  ]
+}
