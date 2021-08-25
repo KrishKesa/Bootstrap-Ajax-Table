@@ -39,6 +39,64 @@ function sqlUpdate($C, $query, $format = false, ...$vars) {
     $stmt->close();
     return false;
 }
+function sqlDelete($C, $query, $format = false, ...$vars) {
+    $stmt = $C->prepare($query);
+    if($format) {
+        $stmt->bind_param($format, ...$vars);
+    }
+    if($stmt->execute()) {
+        $stmt->close();
+        return true;
+    }
+    $stmt->close();
+    return false;
+}
+function deleteCricketer()
+{
+    if(!isset($_POST["id"]))
+    {
+        echo json_encode(["status"=>500,"message"=>"Cricketer id is missing"]);
+        die();
+    }
+    $id = $_POST["id"];
+
+    $conn = new mysqli("localhost","root","","practice");
+    $res = sqlDelete($conn, "delete from cricketers where id = ?","i",intval($id));
+    if($res)
+    {
+        sendCricketersData();
+    }
+    else
+    {
+        echo json_encode(["status"=>500,"message"=>"Error deleting the cricketer from database"]);
+        die();
+    }
+}
+function updateCricketer()
+{
+
+    if(!isset($_POST["id"]) || !isset($_POST["age"]) )
+    {
+        echo json_encode(["status"=>500,"message"=>"Required fields to update were not provided"]);
+        die();
+    }
+    $id = $_REQUEST["id"];    
+    $age =  $_REQUEST["age"];
+    
+    $conn = new mysqli("localhost","root","","practice");
+    $res = sqlUpdate($conn, "update cricketers set age = ? where id = ?","ii",$age,$id);
+    if($res)
+    {
+       
+        sendCricketersData();
+    }
+    else
+    {
+        echo json_encode(["status"=>500,"message"=>"Error updating the cricketer from database"]);
+        die();
+    }
+}
+
 function addCricketersData()
 {
     $name = $_POST["name"];
